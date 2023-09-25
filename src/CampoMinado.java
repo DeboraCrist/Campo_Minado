@@ -98,7 +98,7 @@ public class CampoMinado {
         return true;
     }
 
-    private void revelarBombas() {
+    void revelarBombas() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 if (bombas[i][j]) {
@@ -119,4 +119,17 @@ public class CampoMinado {
     public boolean isDescoberta(int x, int y) {
         return descobertas[x][y];
     }
+
+
+    public boolean ehBomba(int x, int y) {
+        return bombas[x][y];
+    }
+
+    public boolean isJogoVencido() {
+        if (!jogoEncerrado) {
+            return todasZonasNaoBombasDescobertas() && bombasRestantes == 0;
+        }
+        return false;
+    }
 }
+
