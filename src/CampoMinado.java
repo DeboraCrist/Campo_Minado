@@ -45,34 +45,33 @@ public class CampoMinado {
 
     public void colocarBandeira(int x, int y) {
         if (!descobertas[x][y] && !jogoEncerrado) {
-            tabuleiro[x][y] = 'P'; 
+            tabuleiro[x][y] = 'P';
         }
     }
 
     public void removerBandeira(int x, int y) {
         if (tabuleiro[x][y] == 'P' && !jogoEncerrado) {
-            tabuleiro[x][y] = '-'; 
+            tabuleiro[x][y] = '-';
         }
     }
 
     public void descobrirZona(int x, int y) {
-    if (!descobertas[x][y] && !jogoEncerrado) {
-        if (bombas[x][y]) {
-            jogoEncerrado = true;
-            revelarBombas();
-        } else {
-            descobertas[x][y] = true;
-            int bombasAdjacentes = contarBombasAdjacentes(x, y);
-            tabuleiro[x][y] = Character.forDigit(bombasAdjacentes, 10);
-
-            if (bombasRestantes == 0 && todasZonasNaoBombasDescobertas()) {
+        if (!descobertas[x][y] && !jogoEncerrado && tabuleiro[x][y] != 'P') {
+            if (bombas[x][y]) {
                 jogoEncerrado = true;
-                jogoVencido = true;
+                revelarBombas();
+            } else {
+                descobertas[x][y] = true;
+                int bombasAdjacentes = contarBombasAdjacentes(x, y);
+                tabuleiro[x][y] = Character.forDigit(bombasAdjacentes, 10);
+
+                if (bombasRestantes == 0 && todasZonasNaoBombasDescobertas()) {
+                    jogoEncerrado = true;
+                    jogoVencido = true;
+                }
             }
         }
     }
-}
-
 
     private int contarBombasAdjacentes(int x, int y) {
         int bombasAdjacentes = 0;
@@ -103,7 +102,7 @@ public class CampoMinado {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 if (bombas[i][j]) {
-                    tabuleiro[i][j] = 'X'; 
+                    tabuleiro[i][j] = 'X';
                 }
             }
         }
@@ -129,4 +128,5 @@ public class CampoMinado {
         return bombas[x][y];
     }
 }
+
 
