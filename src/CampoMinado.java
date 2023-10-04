@@ -8,6 +8,7 @@ public class CampoMinado {
     private boolean[][] descobertas;
     private int bombasRestantes;
     private boolean jogoEncerrado;
+    private boolean jogoVencido;
 
     public CampoMinado(int tamanho, int numBombas) {
         this.tamanho = tamanho;
@@ -17,6 +18,7 @@ public class CampoMinado {
         this.descobertas = new boolean[tamanho][tamanho];
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
+        this.jogoVencido = false;
         inicializarTabuleiro();
     }
 
@@ -49,29 +51,28 @@ public class CampoMinado {
 
     public void removerBandeira(int x, int y) {
         if (tabuleiro[x][y] == 'P' && !jogoEncerrado) {
-            tabuleiro[x][y] = '-'; // Remover a bandeira
+            tabuleiro[x][y] = '-'; 
         }
     }
 
     public void descobrirZona(int x, int y) {
-        if (!descobertas[x][y] && !jogoEncerrado) {
-            if (bombas[x][y]) {
-                // O jogador perdeu ao descobrir uma bomba
-                jogoEncerrado = true;
-                revelarBombas();
-            } else {
-                // Descobrir a zona e contar bombas adjacentes
-                descobertas[x][y] = true;
-                int bombasAdjacentes = contarBombasAdjacentes(x, y);
-                tabuleiro[x][y] = Character.forDigit(bombasAdjacentes, 10);
+    if (!descobertas[x][y] && !jogoEncerrado) {
+        if (bombas[x][y]) {
+            jogoEncerrado = true;
+            revelarBombas();
+        } else {
+            descobertas[x][y] = true;
+            int bombasAdjacentes = contarBombasAdjacentes(x, y);
+            tabuleiro[x][y] = Character.forDigit(bombasAdjacentes, 10);
 
-                // Se todas as zonas não-bomba foram descobertas, o jogador vence
-                if (bombasRestantes == 0 && todasZonasNaoBombasDescobertas()) {
-                    jogoEncerrado = true;
-                }
+            if (bombasRestantes == 0 && todasZonasNaoBombasDescobertas()) {
+                jogoEncerrado = true;
+                jogoVencido = true;
             }
         }
     }
+}
+
 
     private int contarBombasAdjacentes(int x, int y) {
         int bombasAdjacentes = 0;
@@ -102,7 +103,7 @@ public class CampoMinado {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 if (bombas[i][j]) {
-                    tabuleiro[i][j] = 'X'; // Mostrar bombas
+                    tabuleiro[i][j] = 'X'; 
                 }
             }
         }
@@ -110,6 +111,10 @@ public class CampoMinado {
 
     public boolean isJogoEncerrado() {
         return jogoEncerrado;
+    }
+
+    public boolean isJogoVencido() {
+        return jogoVencido;
     }
 
     public char[][] getTabuleiro() {
@@ -120,16 +125,8 @@ public class CampoMinado {
         return descobertas[x][y];
     }
 
-
     public boolean ehBomba(int x, int y) {
         return bombas[x][y];
-    }
-
-    public boolean isJogoVencido() {
-        if (!jogoEncerrado) {
-            return todasZonasNaoBombasDescobertas() && bombasRestantes == 0;
-        }
-        return false;
     }
 }
 

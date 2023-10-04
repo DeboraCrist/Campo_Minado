@@ -11,11 +11,9 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testInicializacao() {
-        // Verifique se o jogo não está encerrado após a inicialização
+    public void inicializacao() {
         assertFalse(campoMinado.isJogoEncerrado());
         
-        // Verifique se todas as células estão ocultas no início
         char[][] tabuleiro = campoMinado.getTabuleiro();
         for (char[] row : tabuleiro) {
             for (char cell : row) {
@@ -25,27 +23,26 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testColocarBandeira() {
+    public void colocarBandeira() {
         campoMinado.colocarBandeira(0, 0);
         assertEquals('P', campoMinado.getTabuleiro()[0][0]);
     }
 
     @Test
-    public void testRemoverBandeira() {
+    public void removerBandeira() {
         campoMinado.colocarBandeira(0, 0);
         campoMinado.removerBandeira(0, 0);
         assertEquals('-', campoMinado.getTabuleiro()[0][0]);
     }
 
     @Test
-    public void testDescobrirZona() {
-        campoMinado.descobrirZona(3, 3);
-        assertTrue(campoMinado.isDescoberta(3, 3));
+    public void removerBandeiraDeCelulaSemBandeira() {
+        campoMinado.removerBandeira(1, 1); 
+        assertEquals('-', campoMinado.getTabuleiro()[1][1]);
     }
 
      @Test
-    public void testRevelarBombas() {
-        // Coloque manualmente uma bomba em uma posição para simular a perda
+    public void revelarBombas() {
         campoMinado.descobrirZona(4, 4);
         campoMinado.revelarBombas();
         char[][] tabuleiro = campoMinado.getTabuleiro();
@@ -53,10 +50,8 @@ public class CampoMinadoTest {
         for (int i = 0; i < tabuleiro.length; i++) {
             for (int j = 0; j < tabuleiro[i].length; j++) {
                 if (campoMinado.isDescoberta(i, j) && tabuleiro[i][j] == 'X') {
-                    // Verifique se a célula com bomba foi revelada como 'X'
                     assertEquals('X', tabuleiro[i][j]);
                 } else if (!campoMinado.isDescoberta(i, j) && campoMinado.getTabuleiro()[i][j] == 'X') {
-                    // Verifique se as bombas não descobertas ainda estão ocultas como 'X'
                     assertEquals('X', tabuleiro[i][j]);
                 }
             }
@@ -64,8 +59,7 @@ public class CampoMinadoTest {
     }
     
     @Test
-    public void testVitoria() {
-        // Descubra todas as células que não são bombas para vencer o jogo
+    public void vitoria() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (!campoMinado.isJogoEncerrado() && campoMinado.getTabuleiro()[i][j] != 'X') {
@@ -75,7 +69,18 @@ public class CampoMinadoTest {
         }
 
         assertTrue(campoMinado.isJogoEncerrado());
+    } 
+    @Test
+    public void testJogadaValida() {
+        campoMinado.descobrirZona(0, 0);
+        assertTrue(campoMinado.isDescoberta(0, 0));
+        assertFalse(campoMinado.isJogoEncerrado());
     }
 
+    @Test
+    public void jogoIncompletoAteRevelarTodasAsZonasNaoBombas() {
+        campoMinado.descobrirZona(0, 0);
+        assertFalse(campoMinado.isJogoEncerrado());
+    }
+  
 }
-
