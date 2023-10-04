@@ -1,20 +1,35 @@
 import java.util.Random;
 
-public class CampoMinado {
+class CampoMinado {
     private int tamanho;
     private int numBombas;
     private char[][] tabuleiro;
-    boolean[][] bombas;
+    private boolean[][] bombas;
     private boolean[][] descobertas;
     private int bombasRestantes;
     private boolean jogoEncerrado;
     private boolean jogoVencido;
 
-    public CampoMinado(int tamanho, int numBombas) {
-        this.tamanho = tamanho;
-        this.numBombas = numBombas;
+    public CampoMinado(int nivelDificuldade) {
+        switch (nivelDificuldade) {
+            case 1:
+                this.tamanho = 8;
+                this.numBombas = 10;
+                break;
+            case 2:
+                this.tamanho = 10;
+                this.numBombas = 30;
+                break;
+            case 3:
+                this.tamanho = 24;
+                this.numBombas = 100;
+                break;
+            default:
+                throw new IllegalArgumentException("Nível de dificuldade inválido.");
+        }
         this.tabuleiro = new char[tamanho][tamanho];
-        this.bombas = new boolean[tamanho][tamanho];
+        // Correção aqui: chame o método diretamente, sem "this"
+        setBombas(new boolean[tamanho][tamanho]);
         this.descobertas = new boolean[tamanho][tamanho];
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
@@ -22,14 +37,20 @@ public class CampoMinado {
         inicializarTabuleiro();
     }
 
-    public CampoMinado(int i, int j, int k, int l) {
+    public boolean[][] getBombas() {
+        return bombas;
+    }
+
+    public void setBombas(boolean[][] bombas) {
+        this.bombas = bombas;
     }
 
     private void inicializarTabuleiro() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 tabuleiro[i][j] = '-';
-                bombas[i][j] = false;
+                // Correção aqui: chame o método diretamente, sem "this"
+                getBombas()[i][j] = false;
                 descobertas[i][j] = false;
             }
         }
@@ -39,8 +60,8 @@ public class CampoMinado {
         while (bombasColocadas < numBombas) {
             int x = random.nextInt(tamanho);
             int y = random.nextInt(tamanho);
-            if (!bombas[x][y]) {
-                bombas[x][y] = true;
+            if (!getBombas()[x][y]) {
+                getBombas()[x][y] = true;
                 bombasColocadas++;
             }
         }
@@ -60,20 +81,20 @@ public class CampoMinado {
 
     public void descobrirZona(int x, int y) {
         if (!descobertas[x][y] && !jogoEncerrado && tabuleiro[x][y] != 'P') {
-            if (bombas[x][y]) {
+            if (getBombas()[x][y]) {
                 jogoEncerrado = true;
                 revelarBombas();
             } else {
                 descobertas[x][y] = true;
                 int bombasAdjacentes = contarBombasAdjacentes(x, y);
                 tabuleiro[x][y] = Character.forDigit(bombasAdjacentes, 10);
-        
+
                 if (bombasRestantes == 0 && todasZonasNaoBombasDescobertas()) {
                     jogoEncerrado = true;
                     jogoVencido = true;
                 }
             }
-        }        
+        }
     }
 
     private int contarBombasAdjacentes(int x, int y) {
@@ -82,7 +103,7 @@ public class CampoMinado {
             for (int j = -1; j <= 1; j++) {
                 int newX = x + i;
                 int newY = y + j;
-                if (newX >= 0 && newX < tamanho && newY >= 0 && newY < tamanho && bombas[newX][newY]) {
+                if (newX >= 0 && newX < tamanho && newY >= 0 && newY < tamanho && getBombas()[newX][newY]) {
                     bombasAdjacentes++;
                 }
             }
@@ -93,7 +114,7 @@ public class CampoMinado {
     private boolean todasZonasNaoBombasDescobertas() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
-                if (!bombas[i][j] && !descobertas[i][j]) {
+                if (!getBombas()[i][j] && !descobertas[i][j]) {
                     return false;
                 }
             }
@@ -104,7 +125,7 @@ public class CampoMinado {
     void revelarBombas() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
-                if (bombas[i][j]) {
+                if (getBombas()[i][j]) {
                     tabuleiro[i][j] = 'X';
                 }
             }
@@ -128,8 +149,6 @@ public class CampoMinado {
     }
 
     public boolean ehBomba(int x, int y) {
-        return bombas[x][y];
+        return getBombas()[x][y];
     }
 }
-
-

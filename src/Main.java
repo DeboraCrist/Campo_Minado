@@ -4,22 +4,22 @@ public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Bem-vindo ao Campo Minado!");
+            System.out.println("Escolha o nível de dificuldade:");
+            System.out.println("1 - Fácil (8x8 - 10 bombas)");
+            System.out.println("2 - Intermediário (10x16 - 30 bombas)");
+            System.out.println("3 - Difícil (24x24 - 100 bombas)");
 
-            System.out.print("Informe o tamanho do tabuleiro: ");
-            int tamanho = scanner.nextInt();
+            int nivelDificuldade = scanner.nextInt();
 
-            System.out.print("Informe o número de bombas: ");
-            int numBombas = scanner.nextInt();
-
-            CampoMinado jogo = new CampoMinado(tamanho, numBombas);
+            CampoMinado jogo = new CampoMinado(nivelDificuldade);
 
             while (!jogo.isJogoEncerrado()) {
                 mostrarTabuleiro(jogo.getTabuleiro());
 
-                System.out.print("Digite a linha : ");
-                int linha = scanner.nextInt() - 1; 
+                System.out.print("Digite a linha: ");
+                int linha = scanner.nextInt() - 1;
                 System.out.print("Digite a coluna (começando em 1): ");
-                int coluna = scanner.nextInt() - 1; 
+                int coluna = scanner.nextInt() - 1;
 
                 System.out.print("Escolha uma ação (D para descobrir, P para colocar bandeira, R para remover bandeira): ");
                 String acao = scanner.next();
@@ -58,4 +58,3 @@ public class Main {
         }
     }
 }
-
