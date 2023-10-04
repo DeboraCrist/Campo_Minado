@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class CampoMinado {
+public class CampoMinado {
     private int tamanho;
     private int numBombas;
     private char[][] tabuleiro;
@@ -9,7 +9,7 @@ class CampoMinado {
     private int bombasRestantes;
     private boolean jogoEncerrado;
     private boolean jogoVencido;
-    public int getTamanho;
+    private int nivelDeDificuldade; // Novo campo para armazenar o nível de dificuldade
 
     public CampoMinado(int nivelDificuldade) {
         switch (nivelDificuldade) {
@@ -34,6 +34,7 @@ class CampoMinado {
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
         this.jogoVencido = false;
+        this.nivelDeDificuldade = nivelDificuldade; // Inicializa o novo campo
         inicializarTabuleiro();
     }
 
@@ -154,10 +155,11 @@ class CampoMinado {
     public int getNumBombas() {
         return numBombas;
     }
-    
 
     public int getTamanho() {
         return tamanho;
     }
-    
+    public int getNivelDeDificuldade() {
+        return nivelDeDificuldade;
+    }
 }

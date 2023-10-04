@@ -32,6 +32,15 @@ public class CampoMinadoTest {
     }
 
     @Test
+    public void testEscolherNivelDeDificuldade() {
+        assertEquals(1, campoMinado.getNivelDeDificuldade());
+        campoMinado = new CampoMinado(2);
+        assertEquals(2, campoMinado.getNivelDeDificuldade());
+        campoMinado = new CampoMinado(3);
+        assertEquals(3, campoMinado.getNivelDeDificuldade());
+    }
+
+    @Test
     public void inicializacao() {
         assertFalse(campoMinado.isJogoEncerrado());
         
