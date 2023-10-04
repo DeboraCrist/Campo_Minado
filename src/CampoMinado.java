@@ -9,7 +9,7 @@ public class CampoMinado {
     private int bombasRestantes;
     private boolean jogoEncerrado;
     private boolean jogoVencido;
-    private int nivelDeDificuldade; // Novo campo para armazenar o nível de dificuldade
+    private int nivelDeDificuldade; 
 
     public CampoMinado(int nivelDificuldade) {
         switch (nivelDificuldade) {
@@ -34,7 +34,7 @@ public class CampoMinado {
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
         this.jogoVencido = false;
-        this.nivelDeDificuldade = nivelDificuldade; // Inicializa o novo campo
+        this.nivelDeDificuldade = nivelDificuldade; 
         inicializarTabuleiro();
     }
 
@@ -67,10 +67,12 @@ public class CampoMinado {
         }
     }
 
-    public void colocarBandeira(int x, int y) {
+    public boolean colocarBandeira(int x, int y) {
         if (!descobertas[x][y] && !jogoEncerrado) {
             tabuleiro[x][y] = 'P';
+            return true; 
         }
+        return false; 
     }
 
     public void removerBandeira(int x, int y) {
