@@ -10,35 +10,34 @@ public class CampoMinadoTest {
         campoMinado = new CampoMinado(8, 10);
     }
 
-    // ... Other tests ...
 
     @Test
     public void colocarBandeira() {
-        campoMinado.colocarBandeira(1, 1); // Modified to start from (1, 1)
+        campoMinado.colocarBandeira(1, 1); 
         assertEquals('P', campoMinado.getTabuleiro()[1][1]);
     }
 
     @Test
     public void removerBandeira() {
-        campoMinado.colocarBandeira(1, 1); // Modified to start from (1, 1)
-        campoMinado.removerBandeira(1, 1); // Modified to start from (1, 1)
+        campoMinado.colocarBandeira(1, 1); 
+        campoMinado.removerBandeira(1, 1); 
         assertEquals('-', campoMinado.getTabuleiro()[1][1]);
     }
 
     @Test
     public void removerBandeiraDeCelulaSemBandeira() {
-        campoMinado.removerBandeira(2, 2); // Modified to start from (1, 1)
+        campoMinado.removerBandeira(2, 2); 
         assertEquals('-', campoMinado.getTabuleiro()[2][2]);
     }
 
     @Test
     public void revelarBombas() {
-        campoMinado.descobrirZona(5, 5); // Modified to start from (1, 1)
+        campoMinado.descobrirZona(5, 5); 
         campoMinado.revelarBombas();
         char[][] tabuleiro = campoMinado.getTabuleiro();
         
-        for (int i = 1; i < tabuleiro.length; i++) { // Modified to start from (1, 1)
-            for (int j = 1; j < tabuleiro[i].length; j++) { // Modified to start from (1, 1)
+        for (int i = 1; i < tabuleiro.length; i++) { 
+            for (int j = 1; j < tabuleiro[i].length; j++) {  
                 if (campoMinado.isDescoberta(i, j) && tabuleiro[i][j] == 'X') {
                     assertEquals('X', tabuleiro[i][j]);
                 } else if (!campoMinado.isDescoberta(i, j) && campoMinado.getTabuleiro()[i][j] == 'X') {
@@ -63,22 +62,22 @@ public class CampoMinadoTest {
     
     @Test
     public void testJogadaValida() {
-        campoMinado.descobrirZona(0, 0);
-        assertTrue(campoMinado.isDescoberta(0, 0));
+        campoMinado.descobrirZona(1, 1);
+        assertTrue(campoMinado.isDescoberta(1, 1));
         assertFalse(campoMinado.isJogoEncerrado());
     }
 
     @Test
     public void jogoIncompletoAteRevelarTodasAsZonasNaoBombas() {
-        campoMinado.descobrirZona(0, 0);
+        campoMinado.descobrirZona(1, 1);
         assertFalse(campoMinado.isJogoEncerrado());
     }
 
     @Test
     public void testNaoPermitirDescobrirComBandeira() {
-        campoMinado.colocarBandeira(0, 0);
-        campoMinado.descobrirZona(0, 0);
-        assertFalse(campoMinado.isDescoberta(0, 0));
+        campoMinado.colocarBandeira(1, 1);
+        campoMinado.descobrirZona(1, 1);
+        assertFalse(campoMinado.isDescoberta(1, 1));
     }
 
     @Test
@@ -95,8 +94,8 @@ public class CampoMinadoTest {
         int tamanho = 3;
         int numBombas = 1;
         CampoMinado jogo = new CampoMinado(tamanho, numBombas);
-        jogo.bombas[0][0] = true;
-        jogo.descobrirZona(0, 0);
+        jogo.bombas[1][1] = true;
+        jogo.descobrirZona(1, 1);
         assertTrue(jogo.isJogoEncerrado());
         assertFalse(jogo.isJogoVencido());
     }
