@@ -64,13 +64,13 @@ public class CampoMinado {
                 descobertas[x][y] = true;
                 int bombasAdjacentes = contarBombasAdjacentes(x, y);
                 tabuleiro[x][y] = Character.forDigit(bombasAdjacentes, 10);
-
+        
                 if (bombasRestantes == 0 && todasZonasNaoBombasDescobertas()) {
                     jogoEncerrado = true;
                     jogoVencido = true;
                 }
             }
-        }
+        }        
     }
 
     private int contarBombasAdjacentes(int x, int y) {

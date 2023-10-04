@@ -4,22 +4,22 @@ public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Bem-vindo ao Campo Minado!");
-            
+
             System.out.print("Informe o tamanho do tabuleiro: ");
             int tamanho = scanner.nextInt();
-            
+
             System.out.print("Informe o número de bombas: ");
             int numBombas = scanner.nextInt();
-            
+
             CampoMinado jogo = new CampoMinado(tamanho, numBombas);
 
             while (!jogo.isJogoEncerrado()) {
                 mostrarTabuleiro(jogo.getTabuleiro());
 
-                System.out.print("Digite a linha: ");
-                int linha = scanner.nextInt();
-                System.out.print("Digite a coluna: ");
-                int coluna = scanner.nextInt();
+                System.out.print("Digite a linha : ");
+                int linha = scanner.nextInt() - 1; 
+                System.out.print("Digite a coluna (começando em 1): ");
+                int coluna = scanner.nextInt() - 1; 
 
                 System.out.print("Escolha uma ação (D para descobrir, P para colocar bandeira, R para remover bandeira): ");
                 String acao = scanner.next();
@@ -39,7 +39,7 @@ public class Main {
                 }
             }
 
-            if (jogo.isJogoEncerrado() && !jogo.isDescoberta(0, 0)) {
+            if (jogo.isJogoEncerrado() && !jogo.isJogoVencido()) {
                 System.out.println("Você perdeu! Fim de jogo.");
                 mostrarTabuleiro(jogo.getTabuleiro());
             } else {
@@ -58,3 +58,4 @@ public class Main {
         }
     }
 }
+
