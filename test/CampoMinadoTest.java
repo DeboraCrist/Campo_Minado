@@ -10,6 +10,17 @@ public class CampoMinadoTest {
         campoMinado = new CampoMinado(3); // Use 1 para fácil, 2 para intermediário, 3 para difícil
     }
 
+    @Test
+    public void inicializacao() {
+        assertFalse(campoMinado.isJogoEncerrado());
+        
+        char[][] tabuleiro = campoMinado.getTabuleiro();
+        for (char[] row : tabuleiro) {
+            for (char cell : row) {
+                assertEquals('-', cell);
+            }
+        }
+    }
 
     @Test
     public void colocarBandeira() {
@@ -54,7 +65,28 @@ public class CampoMinadoTest {
         assertTrue(campoMinado.isJogoEncerrado());
         assertFalse(campoMinado.isJogoVencido());
     }
- 
-  
+
+    @Test
+    public void vitoria() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (!campoMinado.isJogoEncerrado() && campoMinado.getTabuleiro()[i][j] != 'X') {
+                    campoMinado.descobrirZona(i, j);
+                }
+            }
+        }
+
+        assertTrue(campoMinado.isJogoEncerrado());
+    }
+
+
+    @Test
+    public void testNaoPermitirDescobrirComBandeira() {
+        campoMinado.colocarBandeira(0, 0);
+        campoMinado.descobrirZona(0, 0);
+        assertFalse(campoMinado.isDescoberta(0, 0));
+    }
+       
+   
 }
 

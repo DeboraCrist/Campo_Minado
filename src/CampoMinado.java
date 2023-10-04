@@ -9,6 +9,7 @@ class CampoMinado {
     private int bombasRestantes;
     private boolean jogoEncerrado;
     private boolean jogoVencido;
+    public int getTamanho;
 
     public CampoMinado(int nivelDificuldade) {
         switch (nivelDificuldade) {
@@ -28,7 +29,6 @@ class CampoMinado {
                 throw new IllegalArgumentException("Nível de dificuldade inválido.");
         }
         this.tabuleiro = new char[tamanho][tamanho];
-        // Correção aqui: chame o método diretamente, sem "this"
         setBombas(new boolean[tamanho][tamanho]);
         this.descobertas = new boolean[tamanho][tamanho];
         this.bombasRestantes = numBombas;
@@ -49,7 +49,6 @@ class CampoMinado {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 tabuleiro[i][j] = '-';
-                // Correção aqui: chame o método diretamente, sem "this"
                 getBombas()[i][j] = false;
                 descobertas[i][j] = false;
             }
@@ -151,4 +150,13 @@ class CampoMinado {
     public boolean ehBomba(int x, int y) {
         return getBombas()[x][y];
     }
+
+    public int getNumBombas() {
+        return 0;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+    
 }
