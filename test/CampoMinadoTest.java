@@ -7,7 +7,7 @@ public class CampoMinadoTest {
 
     @Before
     public void setUp() {
-        campoMinado = new CampoMinado(3); // Use 1 para fácil, 2 para intermediário, 3 para difícil
+        campoMinado = new CampoMinado(1); // Use 1 para fácil, 2 para intermediário, 3 para difícil
     }
 
     @Test
@@ -86,7 +86,18 @@ public class CampoMinadoTest {
         campoMinado.descobrirZona(0, 0);
         assertFalse(campoMinado.isDescoberta(0, 0));
     }
-       
+    
+    @Test
+    public void testJogadaValida() {
+
+        assertFalse(campoMinado.isDescoberta(5, 2));
+
+        campoMinado.descobrirZona(5, 2);
+
+        assertTrue(campoMinado.isDescoberta(5, 2));
+        assertFalse(campoMinado.isJogoEncerrado());
+    }
+    
    
 }
 
