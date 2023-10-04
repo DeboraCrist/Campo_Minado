@@ -47,50 +47,6 @@ public class CampoMinadoTest {
         }
     }
     
-    // @Test
-    // public void vitoria() {
-    //     for (int i = 1; i < 5; i++) {
-    //         for (int j = 1; j < 5; j++) {
-    //             if (!campoMinado.isJogoEncerrado() && campoMinado.getTabuleiro()[i][j] != 'X') {
-    //                 campoMinado.descobrirZona(i, j);
-    //             }
-    //         }
-    //     }
-
-    //     assertTrue(campoMinado.isJogoEncerrado());
-    // } 
-    
-   // @Test
-    // public void testJogadaValida() {
-    //     campoMinado.descobrirZona(3, 3);
-    //     assertTrue(campoMinado.isDescoberta(3, 3));
-    //     assertFalse(campoMinado.isJogoEncerrado());
-    // }
-
-
-
-    // @Test
-    //  public void jogoIncompletoAteRevelarTodasAsZonasNaoBombas() {
-    //      campoMinado.descobrirZona(1, 1);
-    //      assertFalse(campoMinado.isJogoEncerrado());
-    //  }
-
-    // @Test
-    // public void testNaoPermitirDescobrirComBandeira() {
-    //     campoMinado.colocarBandeira(1, 1);
-    //     campoMinado.descobrirZona(1, 1);
-    //     assertFalse(campoMinado.isDescoberta(1, 1));
-    // }
-
-    // @Test
-    // public void testDesbrirZonaAposRemoverBandeira() {
-    //     campoMinado.colocarBandeira(3, 3);
-    //     campoMinado.removerBandeira(3, 3);
-    //     campoMinado.descobrirZona(3, 3);
-    //     assertFalse(campoMinado.isJogoEncerrado());
-    //     assertNotEquals('-', campoMinado.getTabuleiro()[3][3]);
-    // }
-    
     @Test
     public void testDerrotaAoDescobrirBomba() {
         campoMinado.getBombas()[1][1] = true;
@@ -98,7 +54,6 @@ public class CampoMinadoTest {
         assertTrue(campoMinado.isJogoEncerrado());
         assertFalse(campoMinado.isJogoVencido());
     }
-
  
   
 }
