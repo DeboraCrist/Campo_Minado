@@ -22,6 +22,9 @@ public class CampoMinado {
         inicializarTabuleiro();
     }
 
+    public CampoMinado(int i, int j, int k, int l) {
+    }
+
     private void inicializarTabuleiro() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {

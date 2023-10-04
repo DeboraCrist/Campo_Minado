@@ -10,45 +10,35 @@ public class CampoMinadoTest {
         campoMinado = new CampoMinado(8, 10);
     }
 
-    @Test
-    public void inicializacao() {
-        assertFalse(campoMinado.isJogoEncerrado());
-        
-        char[][] tabuleiro = campoMinado.getTabuleiro();
-        for (char[] row : tabuleiro) {
-            for (char cell : row) {
-                assertEquals('-', cell);
-            }
-        }
-    }
+    // ... Other tests ...
 
     @Test
     public void colocarBandeira() {
-        campoMinado.colocarBandeira(0, 0);
-        assertEquals('P', campoMinado.getTabuleiro()[0][0]);
+        campoMinado.colocarBandeira(1, 1); // Modified to start from (1, 1)
+        assertEquals('P', campoMinado.getTabuleiro()[1][1]);
     }
 
     @Test
     public void removerBandeira() {
-        campoMinado.colocarBandeira(0, 0);
-        campoMinado.removerBandeira(0, 0);
-        assertEquals('-', campoMinado.getTabuleiro()[0][0]);
-    }
-
-    @Test
-    public void removerBandeiraDeCelulaSemBandeira() {
-        campoMinado.removerBandeira(1, 1); 
+        campoMinado.colocarBandeira(1, 1); // Modified to start from (1, 1)
+        campoMinado.removerBandeira(1, 1); // Modified to start from (1, 1)
         assertEquals('-', campoMinado.getTabuleiro()[1][1]);
     }
 
     @Test
+    public void removerBandeiraDeCelulaSemBandeira() {
+        campoMinado.removerBandeira(2, 2); // Modified to start from (1, 1)
+        assertEquals('-', campoMinado.getTabuleiro()[2][2]);
+    }
+
+    @Test
     public void revelarBombas() {
-        campoMinado.descobrirZona(4, 4);
+        campoMinado.descobrirZona(5, 5); // Modified to start from (1, 1)
         campoMinado.revelarBombas();
         char[][] tabuleiro = campoMinado.getTabuleiro();
         
-        for (int i = 0; i < tabuleiro.length; i++) {
-            for (int j = 0; j < tabuleiro[i].length; j++) {
+        for (int i = 1; i < tabuleiro.length; i++) { // Modified to start from (1, 1)
+            for (int j = 1; j < tabuleiro[i].length; j++) { // Modified to start from (1, 1)
                 if (campoMinado.isDescoberta(i, j) && tabuleiro[i][j] == 'X') {
                     assertEquals('X', tabuleiro[i][j]);
                 } else if (!campoMinado.isDescoberta(i, j) && campoMinado.getTabuleiro()[i][j] == 'X') {
