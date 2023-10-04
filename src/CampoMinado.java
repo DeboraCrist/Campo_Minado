@@ -152,8 +152,9 @@ class CampoMinado {
     }
 
     public int getNumBombas() {
-        return 0;
+        return numBombas;
     }
+    
 
     public int getTamanho() {
         return tamanho;

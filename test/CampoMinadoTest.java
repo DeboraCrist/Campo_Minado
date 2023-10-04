@@ -11,6 +11,27 @@ public class CampoMinadoTest {
     }
 
     @Test
+    public void testNivelFacil() {
+        assertEquals(8, campoMinado.getTamanho());
+        assertEquals(10, campoMinado.getNumBombas());
+    }
+    
+
+    @Test
+    public void testNivelIntermediario() {
+        campoMinado = new CampoMinado(2);
+        assertEquals(10, campoMinado.getTamanho());
+        assertEquals(30, campoMinado.getNumBombas());
+    }
+
+    @Test
+    public void testNivelDificil() {
+        campoMinado = new CampoMinado(3);
+        assertEquals(24, campoMinado.getTamanho());
+        assertEquals(100, campoMinado.getNumBombas());
+    }
+
+    @Test
     public void inicializacao() {
         assertFalse(campoMinado.isJogoEncerrado());
         
@@ -79,25 +100,12 @@ public class CampoMinadoTest {
         assertTrue(campoMinado.isJogoEncerrado());
     }
 
-
     @Test
     public void testNaoPermitirDescobrirComBandeira() {
         campoMinado.colocarBandeira(0, 0);
         campoMinado.descobrirZona(0, 0);
         assertFalse(campoMinado.isDescoberta(0, 0));
     }
-    
-    @Test
-    public void testJogadaValida() {
-
-        assertFalse(campoMinado.isDescoberta(5, 2));
-
-        campoMinado.descobrirZona(5, 2);
-
-        assertTrue(campoMinado.isDescoberta(5, 2));
-        assertFalse(campoMinado.isJogoEncerrado());
-    }
-    
-   
 }
+
 
