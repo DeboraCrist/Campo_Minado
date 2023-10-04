@@ -100,6 +100,16 @@ public class CampoMinadoTest {
         assertNotEquals('-', campoMinado.getTabuleiro()[3][3]);
     }
     
+  @Test
+    public void testDerrotaAoDescobrirBomba() {
+        int tamanho = 3;
+        int numBombas = 1;
+        CampoMinado jogo = new CampoMinado(tamanho, numBombas);
+        jogo.bombas[0][0] = true;
+        jogo.descobrirZona(0, 0);
+        assertTrue(jogo.isJogoEncerrado());
+        assertFalse(jogo.isJogoVencido());
+    }
 
   
 }

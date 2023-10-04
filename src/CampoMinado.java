@@ -4,7 +4,7 @@ public class CampoMinado {
     private int tamanho;
     private int numBombas;
     private char[][] tabuleiro;
-    private boolean[][] bombas;
+    boolean[][] bombas;
     private boolean[][] descobertas;
     private int bombasRestantes;
     private boolean jogoEncerrado;
