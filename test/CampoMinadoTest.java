@@ -188,6 +188,27 @@ public class CampoMinadoTest {
         campoMinado.descobrirZona(2, 2);
         assertTrue(campoMinado.isDescoberta(2, 2));
     }
+
+    @Test
+    public void reiniciarJogo_RedefinirTabuleiroParaEstadoInicial() {
+        campoMinado.colocarBandeira(0, 0); 
+        campoMinado.reiniciarJogo();
+        assertEquals('-', campoMinado.getTabuleiro()[0][0]);
+    }
+
+    @Test
+    public void reiniciarJogo_JogoEncerradoFalso() {
+        campoMinado.colocarBandeira(0, 0); 
+        campoMinado.reiniciarJogo();
+        assertFalse(campoMinado.isJogoEncerrado());
+    }
+
+    @Test
+    public void reiniciarJogo_JogoVencidoFalso() {
+        campoMinado.colocarBandeira(0, 0); 
+        campoMinado.reiniciarJogo();
+        assertFalse(campoMinado.isJogoVencido());
+    }
     
 }
 

@@ -165,4 +165,16 @@ public class CampoMinado {
     public int getNivelDeDificuldade() {
         return nivelDeDificuldade;
     }
+
+    public void reiniciarJogo() {
+        this.tabuleiro = new char[tamanho][tamanho];
+        setBombas(new boolean[tamanho][tamanho]);
+        this.descobertas = new boolean[tamanho][tamanho];
+        this.bombasRestantes = numBombas;
+        this.jogoEncerrado = false;
+        this.jogoVencido = false;
+
+        inicializarTabuleiro();
+    }
+    
 }
