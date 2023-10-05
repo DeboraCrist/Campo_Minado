@@ -2,7 +2,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
+        Scanner scanner = new Scanner(System.in);
+        boolean jogarNovamente = true;
+
+        while (jogarNovamente) {
             System.out.println("Bem-vindo ao Campo Minado!");
             System.out.println("Escolha o nível de dificuldade:");
             System.out.println("1 - Fácil (8x8 - 10 bombas)");
@@ -18,7 +21,7 @@ public class Main {
 
                 System.out.print("Digite a linha: ");
                 int linha = scanner.nextInt() - 1;
-                System.out.print("Digite a coluna (começando em 1): ");
+                System.out.print("Digite a coluna: ");
                 int coluna = scanner.nextInt() - 1;
 
                 System.out.print("Escolha uma ação (D para descobrir, P para colocar bandeira, R para remover bandeira): ");
@@ -45,7 +48,17 @@ public class Main {
             } else {
                 System.out.println("Parabéns! Você venceu!");
             }
+
+            System.out.print("Deseja jogar novamente? (S para Sim, qualquer outra tecla para sair): ");
+            String resposta = scanner.next();
+            jogarNovamente = resposta.equalsIgnoreCase("S");
+
+            if (jogarNovamente) {
+                System.out.println("Reiniciando o jogo...");
+            }
         }
+
+        System.out.println("Obrigado por jogar!");
     }
 
     private static void mostrarTabuleiro(char[][] tabuleiro) {
