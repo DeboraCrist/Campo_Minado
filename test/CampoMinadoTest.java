@@ -11,39 +11,64 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testNivelFacil() {
+    public void nivelFacil() {
         assertEquals(8, campoMinado.getTamanho());
+    }
+
+    @Test
+    public void nivelFacil2() {
         assertEquals(10, campoMinado.getNumBombas());
     }
     
 
     @Test
-    public void testNivelIntermediario() {
+    public void nivelIntermediario() {
         campoMinado = new CampoMinado(2);
         assertEquals(10, campoMinado.getTamanho());
+    }
+
+     @Test
+    public void nivelIntermediario2() {
+        campoMinado = new CampoMinado(2);
         assertEquals(30, campoMinado.getNumBombas());
     }
 
     @Test
-    public void testNivelDificil() {
+    public void nivelDificil() {
         campoMinado = new CampoMinado(3);
         assertEquals(24, campoMinado.getTamanho());
+    }
+
+     @Test
+    public void nivelDificil2() {
+        campoMinado = new CampoMinado(3);
         assertEquals(100, campoMinado.getNumBombas());
     }
 
     @Test
-    public void testEscolherNivelDeDificuldade() {
+    public void escolherNivelDeDificuldade() {
         assertEquals(1, campoMinado.getNivelDeDificuldade());
+    }
+
+    @Test
+    public void escolherNivelDeDificuldade2() {
         campoMinado = new CampoMinado(2);
         assertEquals(2, campoMinado.getNivelDeDificuldade());
+    }
+
+    @Test
+    public void escolherNivelDeDificuldade3() {
         campoMinado = new CampoMinado(3);
         assertEquals(3, campoMinado.getNivelDeDificuldade());
     }
 
     @Test
-    public void inicializacao() {
+    public void jogoNaoEncerradoNaInicializacao() {
         assertFalse(campoMinado.isJogoEncerrado());
-        
+    }
+    
+    @Test
+    public void tabuleiroInicializadoComHifens() {
         char[][] tabuleiro = campoMinado.getTabuleiro();
         for (char[] row : tabuleiro) {
             for (char cell : row) {
@@ -51,6 +76,7 @@ public class CampoMinadoTest {
             }
         }
     }
+    
 
     @Test
     public void colocarBandeira() {
@@ -87,12 +113,18 @@ public class CampoMinadoTest {
             }
         }
     }
-    
+
     @Test
-    public void testDerrotaAoDescobrirBomba() {
+    public void derrotaAoDescobrirBomba() {
         campoMinado.getBombas()[1][1] = true;
         campoMinado.descobrirZona(1, 1);
         assertTrue(campoMinado.isJogoEncerrado());
+    }
+
+    @Test
+    public void jogoNaoVencidoAposDescobrirBomba() {
+        campoMinado.getBombas()[1][1] = true;
+        campoMinado.descobrirZona(1, 1);
         assertFalse(campoMinado.isJogoVencido());
     }
 
@@ -107,12 +139,10 @@ public class CampoMinadoTest {
         }
 
         assertTrue(campoMinado.isJogoEncerrado());
-    }
-
-    
+    }    
 
     @Test
-    public void testNaoPermitirDescobrirComBandeira() {
+    public void naoPermitirDescobrirComBandeira() {
         campoMinado.colocarBandeira(0, 0);
         campoMinado.descobrirZona(0, 0);
         assertFalse(campoMinado.isDescoberta(0, 0));
@@ -120,14 +150,14 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testJogoNaoVencidoAoRevelarBomba() {
+    public void jogoNaoVencidoAoRevelarBomba() {
         campoMinado.getBombas()[1][1] = true;
         campoMinado.descobrirZona(1, 1);
         assertFalse(campoMinado.isJogoVencido());
     }
 
     @Test
-    public void testJogoNaoVencidoAoColocarBandeiraEmTodasAsBombas() {
+    public void jogoNaoVencidoAoColocarBandeiraEmTodasAsBombas() {
         for (int i = 0; i < campoMinado.getTamanho(); i++) {
             for (int j = 0; j < campoMinado.getTamanho(); j++) {
                 if (campoMinado.getBombas()[i][j]) {
@@ -139,7 +169,7 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testDesvendarCelulaAposRemoverBandeira() {
+    public void desvendarCelulaAposRemoverBandeira() {
         campoMinado.colocarBandeira(1, 1); 
         campoMinado.removerBandeira(1, 1); 
         campoMinado.descobrirZona(1, 1); 
@@ -147,11 +177,18 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testImpedirAcaoDeBandeiraEmZonaRevelada() {
+    public void impedirAcaoDeBandeiraEmZonaRevelada() {
         campoMinado.descobrirZona(2, 2);
         boolean resultado = campoMinado.colocarBandeira(2, 2);
         assertFalse(resultado);
     }
+
+    @Test
+    public void descobrirZona() {
+        campoMinado.descobrirZona(2, 2);
+        assertTrue(campoMinado.isDescoberta(2, 2));
+    }
+    
 }
 
 
