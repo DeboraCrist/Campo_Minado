@@ -101,18 +101,21 @@ public class CampoMinado {
     
 
     private int contarBombasAdjacentes(int x, int y) {
-        int bombasAdjacentes = 0;
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                int newX = x + i;
-                int newY = y + j;
-                if (newX >= 0 && newX < tamanho && newY >= 0 && newY < tamanho && getBombas()[newX][newY]) {
-                    bombasAdjacentes++;
+        return 0;
+    }
+
+    public int contarBandeirasColocadas(CampoMinado campoMinado) {
+        int numeroDeBandeirasColocadas = 0;
+        for (int i = 0; i < campoMinado.getTamanho(); i++) {
+            for (int j = 0; j < campoMinado.getTamanho(); j++) {
+                if (campoMinado.getTabuleiro()[i][j] == 'P') {
+                    numeroDeBandeirasColocadas++;
                 }
             }
         }
-        return bombasAdjacentes;
+        return numeroDeBandeirasColocadas;
     }
+    
 
     private boolean todasZonasNaoBombasDescobertas() {
         for (int i = 0; i < tamanho; i++) {
@@ -167,14 +170,17 @@ public class CampoMinado {
     }
 
     public void reiniciarJogo() {
-        this.tabuleiro = new char[tamanho][tamanho];
-        setBombas(new boolean[tamanho][tamanho]);
-        this.descobertas = new boolean[tamanho][tamanho];
-        this.bombasRestantes = numBombas;
-        this.jogoEncerrado = false;
-        this.jogoVencido = false;
+    this.tabuleiro = new char[tamanho][tamanho];
+    setBombas(new boolean[tamanho][tamanho]);
+    this.descobertas = new boolean[tamanho][tamanho];
+    this.bombasRestantes = numBombas;
+    this.jogoEncerrado = false;
+    this.jogoVencido = false;
+    inicializarTabuleiro();
+}
 
-        inicializarTabuleiro();
-    }
+    
+
+ 
     
 }

@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         boolean jogarNovamente = true;
 
         while (jogarNovamente) {
@@ -16,7 +17,9 @@ public class Main {
 
             CampoMinado jogo = new CampoMinado(nivelDificuldade);
 
-            while (!jogo.isJogoEncerrado()) {
+            boolean jogar = true;
+
+            while (!jogo.isJogoEncerrado() && jogar) {
                 mostrarTabuleiro(jogo.getTabuleiro());
 
                 System.out.print("Digite a linha: ");
@@ -24,7 +27,7 @@ public class Main {
                 System.out.print("Digite a coluna: ");
                 int coluna = scanner.nextInt() - 1;
 
-                System.out.print("Escolha uma ação (D para descobrir, P para colocar bandeira, R para remover bandeira): ");
+                System.out.print("Escolha uma ação (D para descobrir, P para colocar bandeira, R para remover bandeira, Q para sair, S para reiniciar): ");
                 String acao = scanner.next();
 
                 try {
@@ -34,8 +37,14 @@ public class Main {
                         jogo.colocarBandeira(linha, coluna);
                     } else if (acao.equalsIgnoreCase("R")) {
                         jogo.removerBandeira(linha, coluna);
+                    } else if (acao.equalsIgnoreCase("S")) {
+                        System.out.println("Reiniciando o jogo...");
+                        jogo.reiniciarJogo();
+                    } else if (acao.equalsIgnoreCase("Q")) {
+                        System.out.println("Saindo do jogo...");
+                        jogar = false;
                     } else {
-                        System.out.println("Ação inválida. Use D, P ou R.");
+                        System.out.println("Ação inválida. Use D, P, R, S ou Q.");
                     }
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());

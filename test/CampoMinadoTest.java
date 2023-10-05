@@ -279,7 +279,42 @@ public class CampoMinadoTest {
             bombasColocadas >= numBombasEsperado - margemErroPercentualAceitavel &&
             bombasColocadas <= numBombasEsperado + margemErroPercentualAceitavel);
     }
+
+    @Test
+    public void reiniciarJogoVencidocomDescoberta() {
+        campoMinado.descobrirZona(0, 0);
+        campoMinado.reiniciarJogo();
+        assertFalse(campoMinado.isJogoVencido());
+    }
+
+
+    @Test
+    public void testNumeroDeBandeirasNaoExcedeTotalDeCelulas() {
+        int numBombas = campoMinado.getNumBombas();
+        int tamanho = campoMinado.getTamanho();
+        assertTrue(numBombas <= tamanho * tamanho);
+    }
+
+    @Test
+    public void testColocarBandeirasIgualAoNumeroDeBombas() {
+        int numBombas = campoMinado.getNumBombas();
+        int tamanho = campoMinado.getTamanho();
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (campoMinado.getBombas()[i][j]) {
+                    campoMinado.colocarBandeira(i, j);
+                }
+            }
+        }
+        int numeroDeBandeirasColocadas = campoMinado.contarBandeirasColocadas(campoMinado);
+        assertEquals(numBombas, numeroDeBandeirasColocadas);
+    }
+
+
+
 }
+
+
     
 
 
