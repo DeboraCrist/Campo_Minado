@@ -311,41 +311,29 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testReiniciarJogo() {
-        // Execute algumas ações no jogo
+    public void testJogoNaoEstaEmEstadoInicial() {
         campoMinado.descobrirZona(0, 0);
         campoMinado.colocarBandeira(1, 1);
 
-        // Verifique se o jogo não está em estado inicial
-        assertFalse(campoMinado.isJogoEncerrado());
+        assertTrue(!campoMinado.isJogoEncerrado() && !campoMinado.isJogoVencido() && campoMinado.numBandeirasColocadas() == 1);
+    }
 
-        // Reinicie o jogo
+    @Test
+    public void testReiniciarJogo() {
+        campoMinado.descobrirZona(0, 0);
+        campoMinado.colocarBandeira(1, 1);
         campoMinado.reiniciarJogo();
 
-        // Verifique se o jogo foi reiniciado
-        assertFalse(campoMinado.isJogoEncerrado());
-        assertFalse(campoMinado.isJogoVencido());
-        assertEquals(0, campoMinado.numBandeirasColocadas());
-        // Adicione mais verificações conforme necessário
+        assertTrue(!campoMinado.isJogoEncerrado() && !campoMinado.isJogoVencido() && campoMinado.numBandeirasColocadas() == 0);
     }
 
     @Test
     public void testReiniciarJogoEmMeioAoJogo() {
-        // Execute algumas ações no jogo
         campoMinado.descobrirZona(0, 0);
         campoMinado.colocarBandeira(1, 1);
-
-        // Verifique se o jogo não está em estado inicial
-        assertFalse(campoMinado.isJogoEncerrado());
-
-        // Reinicie o jogo em meio ao jogo
         campoMinado.reiniciarJogo();
 
-        // Verifique se o jogo foi reiniciado
-        assertFalse(campoMinado.isJogoEncerrado());
-        assertFalse(campoMinado.isJogoVencido());
-        assertEquals(0, campoMinado.numBandeirasColocadas());
-        // Adicione mais verificações conforme necessário
+        assertTrue(!campoMinado.isJogoEncerrado() && !campoMinado.isJogoVencido() && campoMinado.numBandeirasColocadas() == 0);
     }
 
 

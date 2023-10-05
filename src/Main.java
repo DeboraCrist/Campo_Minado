@@ -21,9 +21,10 @@ public class Main {
                 while (!jogo.isJogoEncerrado() && jogar) {
                     mostrarTabuleiro(jogo.getTabuleiro());
 
-                    System.out.print("Digite a linha: ");
+                    System.out.print("Digite a linha (1 a " + jogo.getTamanho() + "): ");
                     int linha = scanner.nextInt() - 1;
-                    System.out.print("Digite a coluna: ");
+
+                    System.out.print("Digite a coluna (1 a " + jogo.getTamanho() + "): ");
                     int coluna = scanner.nextInt() - 1;
 
                     System.out.print("Escolha uma ação (D para descobrir, P para colocar bandeira, R para remover bandeira, Q para sair, S para reiniciar): ");
@@ -72,11 +73,24 @@ public class Main {
 
     private static void mostrarTabuleiro(char[][] tabuleiro) {
         System.out.println("Tabuleiro:");
-        for (char[] linha : tabuleiro) {
-            for (char celula : linha) {
-                System.out.print(celula + " ");
+        int tamanho = tabuleiro.length;
+
+        // Imprimir cabeçalho de colunas
+        System.out.print("  ");
+        for (int coluna = 0; coluna < tamanho; coluna++) {
+            System.out.print((coluna + 1) + " ");
+        }
+        System.out.println();
+
+        for (int linha = 0; linha < tamanho; linha++) {
+            // Imprimir número da linha
+            System.out.print((linha + 1) + " ");
+
+            for (int coluna = 0; coluna < tamanho; coluna++) {
+                System.out.print(tabuleiro[linha][coluna] + " ");
             }
             System.out.println();
         }
     }
 }
+
