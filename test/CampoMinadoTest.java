@@ -336,11 +336,12 @@ public class CampoMinadoTest {
         assertTrue(!campoMinado.isJogoEncerrado() && !campoMinado.isJogoVencido() && campoMinado.numBandeirasColocadas() == 0);
     }
 
-
+    @Test
+    public void testBombasNaoPodemSerColocadasNaPrimeiraZonaRevelada() {
+        campoMinado.descobrirZona(0, 0); 
+        boolean bombaColocada = campoMinado.getBombas()[0][0];
+       
+        assertFalse(bombaColocada);
+    }
 
 }
-
-
-    
-
-

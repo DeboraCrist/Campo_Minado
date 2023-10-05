@@ -10,6 +10,7 @@ public class CampoMinado {
     private boolean jogoEncerrado;
     private boolean jogoVencido;
     private int nivelDeDificuldade;
+    private boolean primeiraZonaRevelada;
 
     public CampoMinado(int nivelDificuldade) {
         switch (nivelDificuldade) {
@@ -35,6 +36,7 @@ public class CampoMinado {
         this.jogoEncerrado = false;
         this.jogoVencido = false;
         this.nivelDeDificuldade = nivelDificuldade;
+        this.primeiraZonaRevelada = false;
         inicializarTabuleiro();
     }
 
@@ -69,9 +71,15 @@ public class CampoMinado {
 
     public boolean colocarBandeira(int x, int y) {
         if (!descobertas[x][y] && !jogoEncerrado) {
-            tabuleiro[x][y] = 'P';
-            return true;
+            if (!primeiraZonaRevelada || !primeiraZonaRevelada(x, y)) { 
+                tabuleiro[x][y] = 'P';
+                return true;
+            }
         }
+        return false;
+    }
+
+    private boolean primeiraZonaRevelada(int x, int y) {
         return false;
     }
 
@@ -189,6 +197,7 @@ public class CampoMinado {
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
         this.jogoVencido = false;
+        this.primeiraZonaRevelada = false; // Reiniciar a variável também
         inicializarTabuleiro();
     }
 
