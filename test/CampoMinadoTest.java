@@ -209,6 +209,18 @@ public class CampoMinadoTest {
         campoMinado.reiniciarJogo();
         assertFalse(campoMinado.isJogoVencido());
     }
+
+    @Test
+    public void testZonasCobertasIniciaisSemBandeiras() {
+        char[][] tabuleiroInicial = campoMinado.getTabuleiro();
+
+        for (int i = 0; i < campoMinado.getTamanho(); i++) {
+            for (int j = 0; j < campoMinado.getTamanho(); j++) {
+                assertNotEquals('P', tabuleiroInicial[i][j]);
+            }
+        }
+    }
+    
     
 }
 
