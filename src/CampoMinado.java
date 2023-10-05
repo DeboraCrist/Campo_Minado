@@ -9,7 +9,7 @@ public class CampoMinado {
     private int bombasRestantes;
     private boolean jogoEncerrado;
     private boolean jogoVencido;
-    private int nivelDeDificuldade; 
+    private int nivelDeDificuldade;
 
     public CampoMinado(int nivelDificuldade) {
         switch (nivelDificuldade) {
@@ -34,7 +34,7 @@ public class CampoMinado {
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
         this.jogoVencido = false;
-        this.nivelDeDificuldade = nivelDificuldade; 
+        this.nivelDeDificuldade = nivelDificuldade;
         inicializarTabuleiro();
     }
 
@@ -70,9 +70,9 @@ public class CampoMinado {
     public boolean colocarBandeira(int x, int y) {
         if (!descobertas[x][y] && !jogoEncerrado) {
             tabuleiro[x][y] = 'P';
-            return true; 
+            return true;
         }
-        return false; 
+        return false;
     }
 
     public void removerBandeira(int x, int y) {
@@ -90,7 +90,7 @@ public class CampoMinado {
                 descobertas[x][y] = true;
                 int bombasAdjacentes = contarBombasAdjacentes(x, y);
                 tabuleiro[x][y] = Character.forDigit(bombasAdjacentes, 10);
-    
+
                 if (bombasRestantes == 0 && todasZonasNaoBombasDescobertas()) {
                     jogoEncerrado = true;
                     jogoVencido = true;
@@ -98,24 +98,36 @@ public class CampoMinado {
             }
         }
     }
-    
 
     private int contarBombasAdjacentes(int x, int y) {
-        return 0;
+        int bombasAdjacentes = 0;
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int newX = x + i;
+                int newY = y + j;
+                if (newX >= 0 && newX < tamanho && newY >= 0 && newY < tamanho) {
+                    if (getBombas()[newX][newY]) {
+                        bombasAdjacentes++;
+                    }
+                }
+            }
+        }
+
+        return bombasAdjacentes;
     }
 
-    public int contarBandeirasColocadas(CampoMinado campoMinado) {
+    public int contarBandeirasColocadas() {
         int numeroDeBandeirasColocadas = 0;
-        for (int i = 0; i < campoMinado.getTamanho(); i++) {
-            for (int j = 0; j < campoMinado.getTamanho(); j++) {
-                if (campoMinado.getTabuleiro()[i][j] == 'P') {
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (tabuleiro[i][j] == 'P') {
                     numeroDeBandeirasColocadas++;
                 }
             }
         }
         return numeroDeBandeirasColocadas;
     }
-    
 
     private boolean todasZonasNaoBombasDescobertas() {
         for (int i = 0; i < tamanho; i++) {
@@ -128,7 +140,7 @@ public class CampoMinado {
         return true;
     }
 
-    void revelarBombas() {
+    public void revelarBombas() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 if (getBombas()[i][j]) {
@@ -165,22 +177,30 @@ public class CampoMinado {
     public int getTamanho() {
         return tamanho;
     }
+
     public int getNivelDeDificuldade() {
         return nivelDeDificuldade;
     }
 
     public void reiniciarJogo() {
-    this.tabuleiro = new char[tamanho][tamanho];
-    setBombas(new boolean[tamanho][tamanho]);
-    this.descobertas = new boolean[tamanho][tamanho];
-    this.bombasRestantes = numBombas;
-    this.jogoEncerrado = false;
-    this.jogoVencido = false;
-    inicializarTabuleiro();
-}
+        this.tabuleiro = new char[tamanho][tamanho];
+        setBombas(new boolean[tamanho][tamanho]);
+        this.descobertas = new boolean[tamanho][tamanho];
+        this.bombasRestantes = numBombas;
+        this.jogoEncerrado = false;
+        this.jogoVencido = false;
+        inicializarTabuleiro();
+    }
 
-    
-
- 
-    
+    public int numBandeirasColocadas() {
+        int numBandeiras = 0;
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (tabuleiro[i][j] == 'P') {
+                    numBandeiras++;
+                }
+            }
+        }
+        return numBandeiras;
+    }
 }
