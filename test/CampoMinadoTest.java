@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 public class CampoMinadoTest {
     private CampoMinado campoMinado;
 
+    private static final double ACCEPTABLE_ERROR_PERCENTAGE = 5.0;
     @Before
     public void setUp() {
         campoMinado = new CampoMinado(1); // Use 1 para fácil, 2 para intermediário, 3 para difícil
@@ -77,7 +78,6 @@ public class CampoMinadoTest {
         }
     }
     
-
     @Test
     public void colocarBandeira() {
         campoMinado.colocarBandeira(1, 1); 
@@ -211,7 +211,7 @@ public class CampoMinadoTest {
     }
 
     @Test
-    public void testZonasCobertasIniciaisSemBandeiras() {
+    public void zonasCobertasIniciaisSemBandeiras() {
         char[][] tabuleiroInicial = campoMinado.getTabuleiro();
 
         for (int i = 0; i < campoMinado.getTamanho(); i++) {
@@ -220,8 +220,66 @@ public class CampoMinadoTest {
             }
         }
     }
-    
-    
+
+    @Test
+    public void distribuicaoAleatoriaBombasNivelFacil() {
+        int numBombasEsperado = campoMinado.getNumBombas();
+        double margemErroPercentualAceitavel = ACCEPTABLE_ERROR_PERCENTAGE / 100.0 * numBombasEsperado;
+
+        int bombasColocadas = 0;
+        for (int x = 0; x < campoMinado.getTamanho(); x++) {
+            for (int y = 0; y < campoMinado.getTamanho(); y++) {
+                if (campoMinado.getBombas()[x][y]) {
+                    bombasColocadas++;
+                }
+            }
+        }
+
+        assertTrue("Número de bombas fora da margem de erro aceitável para o nível fácil",
+            bombasColocadas >= numBombasEsperado - margemErroPercentualAceitavel &&
+            bombasColocadas <= numBombasEsperado + margemErroPercentualAceitavel);
+    }
+
+    @Test
+    public void distribuicaoAleatoriaBombasNivelIntermediario() {
+        campoMinado = new CampoMinado(2); 
+        int numBombasEsperado = campoMinado.getNumBombas();
+        double margemErroPercentualAceitavel = ACCEPTABLE_ERROR_PERCENTAGE / 100.0 * numBombasEsperado;
+
+        int bombasColocadas = 0;
+        for (int x = 0; x < campoMinado.getTamanho(); x++) {
+            for (int y = 0; y < campoMinado.getTamanho(); y++) {
+                if (campoMinado.getBombas()[x][y]) {
+                    bombasColocadas++;
+                }
+            }
+        }
+
+        assertTrue("Número de bombas fora da margem de erro aceitável para o nível intermediário",
+            bombasColocadas >= numBombasEsperado - margemErroPercentualAceitavel &&
+            bombasColocadas <= numBombasEsperado + margemErroPercentualAceitavel);
+    }
+
+    @Test
+    public void distribuicaoAleatoriaBombasNivelDificil() {
+        campoMinado = new CampoMinado(3);
+        int numBombasEsperado = campoMinado.getNumBombas();
+        double margemErroPercentualAceitavel = ACCEPTABLE_ERROR_PERCENTAGE / 100.0 * numBombasEsperado;
+
+        int bombasColocadas = 0;
+        for (int x = 0; x < campoMinado.getTamanho(); x++) {
+            for (int y = 0; y < campoMinado.getTamanho(); y++) {
+                if (campoMinado.getBombas()[x][y]) {
+                    bombasColocadas++;
+                }
+            }
+        }
+
+        assertTrue("Número de bombas fora da margem de erro aceitável para o nível difícil",
+            bombasColocadas >= numBombasEsperado - margemErroPercentualAceitavel &&
+            bombasColocadas <= numBombasEsperado + margemErroPercentualAceitavel);
+    }
 }
+    
 
 
