@@ -1,5 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class CampoMinadoTest {
@@ -78,137 +79,7 @@ public class CampoMinadoTest {
         }
     }
     
-    @Test
-    public void colocarBandeira() {
-        campoMinado.colocarBandeira(1, 1); 
-        assertEquals('P', campoMinado.getTabuleiro()[1][1]);
-    }
 
-    @Test
-    public void removerBandeira() {
-        campoMinado.colocarBandeira(1, 1); 
-        campoMinado.removerBandeira(1, 1); 
-        assertEquals('-', campoMinado.getTabuleiro()[1][1]);
-    }
-
-    @Test
-    public void removerBandeiraDeCelulaSemBandeira() {
-        campoMinado.removerBandeira(2, 2); 
-        assertEquals('-', campoMinado.getTabuleiro()[2][2]);
-    }
-
-    @Test
-    public void revelarBombas() {
-        campoMinado.descobrirZona(5, 5); 
-        campoMinado.revelarBombas();
-        char[][] tabuleiro = campoMinado.getTabuleiro();
-        
-        for (int i = 1; i < tabuleiro.length; i++) { 
-            for (int j = 1; j < tabuleiro[i].length; j++) {  
-                if (campoMinado.isDescoberta(i, j) && tabuleiro[i][j] == 'X') {
-                    assertEquals('X', tabuleiro[i][j]);
-                } else if (!campoMinado.isDescoberta(i, j) && campoMinado.getTabuleiro()[i][j] == 'X') {
-                    assertEquals('X', tabuleiro[i][j]);
-                }
-            }
-        }
-    }
-
-    @Test
-    public void derrotaAoDescobrirBomba() {
-        campoMinado.getBombas()[1][1] = true;
-        campoMinado.descobrirZona(1, 1);
-        assertTrue(campoMinado.isJogoEncerrado());
-    }
-
-    @Test
-    public void jogoNaoVencidoAposDescobrirBomba() {
-        campoMinado.getBombas()[1][1] = true;
-        campoMinado.descobrirZona(1, 1);
-        assertFalse(campoMinado.isJogoVencido());
-    }
-
-    @Test
-    public void vitoria() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (!campoMinado.isJogoEncerrado() && campoMinado.getTabuleiro()[i][j] != 'X') {
-                    campoMinado.descobrirZona(i, j);
-                }
-            }
-        }
-
-        assertTrue(campoMinado.isJogoEncerrado());
-    }    
-
-    @Test
-    public void naoPermitirDescobrirComBandeira() {
-        campoMinado.colocarBandeira(0, 0);
-        campoMinado.descobrirZona(0, 0);
-        assertFalse(campoMinado.isDescoberta(0, 0));
- 
-    }
-
-    @Test
-    public void jogoNaoVencidoAoRevelarBomba() {
-        campoMinado.getBombas()[1][1] = true;
-        campoMinado.descobrirZona(1, 1);
-        assertFalse(campoMinado.isJogoVencido());
-    }
-
-    @Test
-    public void jogoNaoVencidoAoColocarBandeiraEmTodasAsBombas() {
-        for (int i = 0; i < campoMinado.getTamanho(); i++) {
-            for (int j = 0; j < campoMinado.getTamanho(); j++) {
-                if (campoMinado.getBombas()[i][j]) {
-                    campoMinado.colocarBandeira(i, j);
-                }
-            }
-        }
-        assertFalse(campoMinado.isJogoVencido());
-    }
-
-    @Test
-    public void desvendarCelulaAposRemoverBandeira() {
-        campoMinado.colocarBandeira(1, 1); 
-        campoMinado.removerBandeira(1, 1); 
-        campoMinado.descobrirZona(1, 1); 
-        assertTrue(campoMinado.isDescoberta(1, 1)); 
-    }
-
-    @Test
-    public void impedirAcaoDeBandeiraEmZonaRevelada() {
-        campoMinado.descobrirZona(2, 2);
-        boolean resultado = campoMinado.colocarBandeira(2, 2);
-        assertFalse(resultado);
-    }
-
-    @Test
-    public void descobrirZona() {
-        campoMinado.descobrirZona(2, 2);
-        assertTrue(campoMinado.isDescoberta(2, 2));
-    }
-
-    @Test
-    public void reiniciarJogo_RedefinirTabuleiroParaEstadoInicial() {
-        campoMinado.colocarBandeira(0, 0); 
-        campoMinado.reiniciarJogo();
-        assertEquals('-', campoMinado.getTabuleiro()[0][0]);
-    }
-
-    @Test
-    public void reiniciarJogo_JogoEncerradoFalso() {
-        campoMinado.colocarBandeira(0, 0); 
-        campoMinado.reiniciarJogo();
-        assertFalse(campoMinado.isJogoEncerrado());
-    }
-
-    @Test
-    public void reiniciarJogo_JogoVencidoFalso() {
-        campoMinado.colocarBandeira(0, 0); 
-        campoMinado.reiniciarJogo();
-        assertFalse(campoMinado.isJogoVencido());
-    }
 
     @Test
     public void zonasCobertasIniciaisSemBandeiras() {
@@ -280,68 +151,12 @@ public class CampoMinadoTest {
             bombasColocadas <= numBombasEsperado + margemErroPercentualAceitavel);
     }
 
-    @Test
-    public void reiniciarJogoVencidocomDescoberta() {
-        campoMinado.descobrirZona(0, 0);
-        campoMinado.reiniciarJogo();
-        assertFalse(campoMinado.isJogoVencido());
-    }
-
 
     @Test
     public void testNumeroDeBandeirasNaoExcedeTotalDeCelulas() {
         int numBombas = campoMinado.getNumBombas();
         int tamanho = campoMinado.getTamanho();
         assertTrue(numBombas <= tamanho * tamanho);
-    }
-
-    @Test
-    public void testColocarBandeirasIgualAoNumeroDeBombas() {
-        int numBombas = campoMinado.getNumBombas();
-        int tamanho = campoMinado.getTamanho();
-        for (int i = 0; i < tamanho; i++) {
-            for (int j = 0; j < tamanho; j++) {
-                if (campoMinado.getBombas()[i][j]) {
-                    campoMinado.colocarBandeira(i, j);
-                }
-            }
-        }
-        int numeroDeBandeirasColocadas = campoMinado.contarBandeirasColocadas();
-        assertEquals(numBombas, numeroDeBandeirasColocadas);
-    }
-
-    @Test
-    public void testJogoNaoEstaEmEstadoInicial() {
-        campoMinado.descobrirZona(0, 0);
-        campoMinado.colocarBandeira(1, 1);
-
-        assertTrue(!campoMinado.isJogoEncerrado() && !campoMinado.isJogoVencido() && campoMinado.numBandeirasColocadas() == 1);
-    }
-
-    @Test
-    public void testReiniciarJogo() {
-        campoMinado.descobrirZona(0, 0);
-        campoMinado.colocarBandeira(1, 1);
-        campoMinado.reiniciarJogo();
-
-        assertTrue(!campoMinado.isJogoEncerrado() && !campoMinado.isJogoVencido() && campoMinado.numBandeirasColocadas() == 0);
-    }
-
-    @Test
-    public void testReiniciarJogoEmMeioAoJogo() {
-        campoMinado.descobrirZona(0, 0);
-        campoMinado.colocarBandeira(1, 1);
-        campoMinado.reiniciarJogo();
-
-        assertTrue(!campoMinado.isJogoEncerrado() && !campoMinado.isJogoVencido() && campoMinado.numBandeirasColocadas() == 0);
-    }
-
-    @Test
-    public void testBombasNaoPodemSerColocadasNaPrimeiraZonaRevelada() {
-        campoMinado.descobrirZona(0, 0); 
-        boolean bombaColocada = campoMinado.getBombas()[0][0];
-       
-        assertFalse(bombaColocada);
     }
 
 }

@@ -1,4 +1,5 @@
 import java.util.Random;
+import models.Coordenada;
 
 public class CampoMinado {
     private int tamanho;
@@ -69,9 +70,11 @@ public class CampoMinado {
         }
     }
 
-    public boolean colocarBandeira(int x, int y) {
+    public boolean colocarBandeira(Coordenada coordenada) {
+        int x = coordenada.getX();
+        int y = coordenada.getY();
         if (!descobertas[x][y] && !jogoEncerrado) {
-            if (!primeiraZonaRevelada || !primeiraZonaRevelada(x, y)) { 
+            if (!primeiraZonaRevelada || !primeiraZonaRevelada(x, y)) {
                 tabuleiro[x][y] = 'P';
                 return true;
             }
@@ -83,13 +86,17 @@ public class CampoMinado {
         return false;
     }
 
-    public void removerBandeira(int x, int y) {
+    public void removerBandeira(Coordenada coordenada) {
+        int x = coordenada.getX();
+        int y = coordenada.getY();
         if (tabuleiro[x][y] == 'P' && !jogoEncerrado) {
             tabuleiro[x][y] = '-';
         }
     }
 
-    public void descobrirZona(int x, int y) {
+    public void descobrirZona(Coordenada coordenada) {
+        int x = coordenada.getX();
+        int y = coordenada.getY();
         if (!descobertas[x][y] && !jogoEncerrado && tabuleiro[x][y] != 'P') {
             if (getBombas()[x][y]) {
                 jogoEncerrado = true;
@@ -170,11 +177,15 @@ public class CampoMinado {
         return tabuleiro;
     }
 
-    public boolean isDescoberta(int x, int y) {
+    public boolean isDescoberta(Coordenada coordenada) {
+        int x = coordenada.getX();
+        int y = coordenada.getY();
         return descobertas[x][y];
     }
 
-    public boolean ehBomba(int x, int y) {
+    public boolean ehBomba(Coordenada coordenada) {
+        int x = coordenada.getX();
+        int y = coordenada.getY();
         return getBombas()[x][y];
     }
 
@@ -197,7 +208,7 @@ public class CampoMinado {
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
         this.jogoVencido = false;
-        this.primeiraZonaRevelada = false; // Reiniciar a variável também
+        this.primeiraZonaRevelada = false;
         inicializarTabuleiro();
     }
 

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import models.Coordenada;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,12 +32,14 @@ public class Main {
                     String acao = scanner.next();
 
                     try {
+                        Coordenada coordenada = new Coordenada(linha, coluna);
+                        
                         if (acao.equalsIgnoreCase("D")) {
-                            jogo.descobrirZona(linha, coluna);
+                            jogo.descobrirZona(coordenada);
                         } else if (acao.equalsIgnoreCase("P")) {
-                            jogo.colocarBandeira(linha, coluna);
+                            jogo.colocarBandeira(coordenada);
                         } else if (acao.equalsIgnoreCase("R")) {
-                            jogo.removerBandeira(linha, coluna);
+                            jogo.removerBandeira(coordenada);
                         } else if (acao.equalsIgnoreCase("S")) {
                             System.out.println("Reiniciando o jogo...");
                             jogo.reiniciarJogo();
@@ -75,7 +78,6 @@ public class Main {
         System.out.println("Tabuleiro:");
         int tamanho = tabuleiro.length;
 
-        // Imprimir cabeçalho de colunas
         System.out.print("  ");
         for (int coluna = 0; coluna < tamanho; coluna++) {
             System.out.print((coluna + 1) + " ");
@@ -83,7 +85,7 @@ public class Main {
         System.out.println();
 
         for (int linha = 0; linha < tamanho; linha++) {
-            // Imprimir número da linha
+          
             System.out.print((linha + 1) + " ");
 
             for (int coluna = 0; coluna < tamanho; coluna++) {
