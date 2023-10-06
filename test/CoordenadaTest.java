@@ -2,13 +2,14 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import models.Coordenada;
+import models.NivelDificuldade;
 
 public class CoordenadaTest {
     private CampoMinado campoMinado;
 
     @Before
     public void setUp() {
-        campoMinado = new CampoMinado(1); // Use 1 para fácil, 2 para intermediário, 3 para difícil
+        campoMinado = new CampoMinado(NivelDificuldade.FACIL);
     }
 
     @Test

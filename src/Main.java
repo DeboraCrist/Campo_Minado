@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import models.Coordenada;
-
+import models.NivelDificuldade;
 public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -13,7 +13,20 @@ public class Main {
                 System.out.println("2 - Intermediário (10x16 - 30 bombas)");
                 System.out.println("3 - Difícil (24x24 - 100 bombas)");
 
-                int nivelDificuldade = scanner.nextInt();
+                int nivelEscolhido = scanner.nextInt();
+
+                NivelDificuldade nivelDificuldade;
+
+                if (nivelEscolhido == 1) {
+                    nivelDificuldade = NivelDificuldade.FACIL;
+                } else if (nivelEscolhido == 2) {
+                    nivelDificuldade = NivelDificuldade.MEDIO;
+                } else if (nivelEscolhido == 3) {
+                    nivelDificuldade = NivelDificuldade.DIFICIL;
+                } else {
+                    System.out.println("Opção de nível de dificuldade inválida. Escolha 1, 2 ou 3.");
+                    continue; // Volte ao início do loop para a próxima tentativa.
+                }
 
                 CampoMinado jogo = new CampoMinado(nivelDificuldade);
 
@@ -95,4 +108,3 @@ public class Main {
         }
     }
 }
-

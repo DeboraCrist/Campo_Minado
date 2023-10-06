@@ -1,5 +1,6 @@
 import java.util.Random;
 import models.Coordenada;
+import models.NivelDificuldade;
 
 public class CampoMinado {
     private int tamanho;
@@ -10,33 +11,32 @@ public class CampoMinado {
     private int bombasRestantes;
     private boolean jogoEncerrado;
     private boolean jogoVencido;
-    private int nivelDeDificuldade;
     private boolean primeiraZonaRevelada;
 
-    public CampoMinado(int nivelDificuldade) {
+    public CampoMinado(NivelDificuldade nivelDificuldade) {
         switch (nivelDificuldade) {
-            case 1:
+            case FACIL:
                 this.tamanho = 8;
                 this.numBombas = 10;
                 break;
-            case 2:
+            case MEDIO:
                 this.tamanho = 10;
                 this.numBombas = 30;
                 break;
-            case 3:
+            case DIFICIL:
                 this.tamanho = 24;
                 this.numBombas = 100;
                 break;
             default:
                 throw new IllegalArgumentException("Nível de dificuldade inválido.");
         }
+
         this.tabuleiro = new char[tamanho][tamanho];
         setBombas(new boolean[tamanho][tamanho]);
         this.descobertas = new boolean[tamanho][tamanho];
         this.bombasRestantes = numBombas;
         this.jogoEncerrado = false;
         this.jogoVencido = false;
-        this.nivelDeDificuldade = nivelDificuldade;
         this.primeiraZonaRevelada = false;
         inicializarTabuleiro();
     }
@@ -195,10 +195,6 @@ public class CampoMinado {
 
     public int getTamanho() {
         return tamanho;
-    }
-
-    public int getNivelDeDificuldade() {
-        return nivelDeDificuldade;
     }
 
     public void reiniciarJogo() {
